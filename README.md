@@ -9,7 +9,7 @@
 
 **[➡️ Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)** | **[📖 Project Introduction](https://www.cxthhhhh.com/search-aio/)**
 
-![SearchAIO Screenshot](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/screenshot.png)
+![SearchAIO Screenshot](blob:https://github.com/4445dd51-64d6-4748-8ebf-a7b86b1e381a)
 
 ---
 
