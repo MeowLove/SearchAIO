@@ -58,7 +58,7 @@
 -   **CSS3** (with CSS Variables for theming)
 -   **Vanilla JavaScript** (ES6+)
 
-The entire application is contained within a single `index.html` file, making it extremely lightweight and portable.
+The entire application is contained within a single `SearchAIO.html` file, making it extremely lightweight and portable.
 
 ---
 
