@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchAIO</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #202124;
+            --secondary-text-color: #5f6368;
+            --input-border-color: #dfe1e5;
+            --card-bg-color: #f8f9fa;
+            --active-btn-bg: #e8f0fe;
+            --active-btn-text: #1967d2;
+            --active-btn-border: #d2e3fc;
+            --footer-text-color: #aaa;
+            --footer-link-color: #777;
+            --theme-color: #4285f4;
+            --button-bg: #f8f9fa;
+            --button-border: #f8f9fa;
+            --button-text: #3c4043;
+            --button-hover-border: #dadce0;
+            --button-hover-shadow: 0 1px 1px rgba(0,0,0,.1);
+        }
+        html[data-theme="dark"] {
+            color-scheme: dark;
+            --bg-color: #202124;
+            --text-color: #e8eaed;
+            --secondary-text-color: #9aa0a6;
+            --input-border-color: #5f6368;
+            --card-bg-color: #2d2e30;
+            --active-btn-bg: #303d52;
+            --active-btn-text: #a8c7fa;
+            --active-btn-border: #303d52;
+            --footer-text-color: #5f6368;
+            --footer-link-color: #9aa0a6;
+            --button-bg: #303134;
+            --button-border: #303134;
+            --button-text: #e8eaed;
+            --button-hover-border: #5f6368;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px 20px 80px 20px;
+            box-sizing: border-box;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            max-width: 584px;
+        }
+        .logo {
+            max-height: 92px;
+            margin-bottom: 28px;
+            object-fit: contain;
+        }
+        html[data-theme="dark"] .logo {
+            filter: invert(1) hue-rotate(180deg);
+        }
+        html[data-theme="dark"] .logo[alt="Bing"],
+        html[data-theme="dark"] .logo[alt="Perplexity"] {
+            filter: none;
+        }
+        .search-bar {
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 24px;
+            border: 1px solid var(--input-border-color);
+            box-sizing: border-box;
+            outline: none;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+        #search-input:hover, #search-input:focus {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            border-color: rgba(223, 225, 229, 0);
+        }
+        .buttons-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .action-btn {
+            background-color: var(--button-bg);
+            border: 1px solid var(--button-border);
+            border-radius: 4px;
+            color: var(--button-text);
+            font-size: 14px;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .action-btn#search-btn {
+             background-color: var(--theme-color);
+             border-color: var(--theme-color);
+             color: white;
+        }
+        .action-btn:hover {
+            border: 1px solid var(--button-hover-border);
+            box-shadow: var(--button-hover-shadow);
+        }
+        #lucky-btn.hidden {
+            display: none;
+        }
+        .generator-mode {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--input-border-color);
+            width: 100%;
+        }
+        .generator-mode > p {
+            font-size: 14px;
+            color: var(--secondary-text-color);
+            margin-bottom: 15px;
+        }
+        .engine-switcher {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .tier-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--secondary-text-color);
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        .tier-row {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .engine-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--input-border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+        }
+        .engine-btn.active {
+            background-color: var(--active-btn-bg);
+            color: var(--active-btn-text);
+            border-color: var(--active-btn-border);
+        }
+        #engine-description-box {
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0 20px 0;
+            font-size: 14px;
+            color: var(--secondary-text-color);
+            min-height: 4em;
+            line-height: 1.5;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+        #copy-btn {
+            width: 100%;
+            max-width: 250px;
+            background-color: var(--theme-color);
+            color: white;
+            font-weight: bold;
+        }
+        #copy-btn:hover {
+            filter: brightness(1.1);
+        }
+        #cursor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 36px;
+            height: 36px;
+            background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMjhweCIgaGVpZ2h0PSIxMjhweCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEyOCAxMjgiIHhtbDpzcGFjZT0icHJlc2VydmUiPiAgPGltYWdlIGlkPSJpbWFnZTAiIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB4PSIwIiB5PSIwIgogICAgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFJQUFBQUNBQ0FRQUFBQnBONmxBQUFBQUlHTklVazBBQUhvbUFBQ0FoQUFBK2dBQUFJRG8KQUFCMU1BQUE2bUFBQURxWUFBQVhjSnk2VVR3QUFBQUNZa3RIUkFEL2g0L012d0FBQUFsd1NGbHpBQUFEc0FBQUE3QUJKOFFQclFBQQpBQWQwU1UxRkIra0hDUWNmR1o3Snc2c0FBQVdtU1VSQlZIamE3VjA5Y0J0RkZQNXdsSWJCTUF3dEhwTkpJZzFqQ2lhWmlSTzMwRklsCk5TVVZyaE9sb2twb0thbmlWcElURjFST0I1TktRMllZVEVzWkpXTmtTMWFERTJZUXhVVzJ0TC92M2Q3ZXZoUDNxZlR0YWI5djkrMTkKdCs5cERkU29VYU1RckdFWEUweXdoMWJxcnFTaGY0VHAyODh4MWxKM3AzenNudEdmWW9wdTZ1NlVqOG1DQUNlcHUwUEhPd1hkWnhycAp2dEd4a3JvRHFWRUxrTG9EcVdFWG9JVWVCaGlnaDJhVWI0NTkvK0R1SFordDZTTnNlcStmS2g4Zk5qR2E4dzBDSmVndDBCbDdKZUFKCnNJbXhkTi93VWlFMHhzM0NCTGcrTjd1eXo2dlVkSFVNTkVwdUNlZ0M2UFNuZUpHYXJvNnUxa2wzSUZBRlVDZS8yQkJvemkxU0ZBbG8KQXBqcGp5UXVnc0MxdWZjN2Z5QlFCREJOZnNvQ213em04VEozZUtKY0UzWTNNYUJQMmIyRkt6cmEzMXZNa0JJRDZxSTFiNXlHK0ZqNwplNithOUcwU0RBelhyYUdMRTV5Z1k2QnZmcXhXZ2o1Z1dnNzV6KzFCZGVrRFJWalhicFhwWnhLRXZidzBtUzlYQXRGOCsvcmF4ZFVrCjdXdlVxRkdqUm8wYU5hSWh5KzlQTFI5LzN2OEtIbU9NRWZheGpVdXB5ZVNoZjJRbGYyNkI3WG4vSzhwdXp3RWVZcXRLZWFkZEwzMzMKUzVDNS9TRjJjQWVycWNsUk1DRUpZTS83anh5dFh1T3AvTENnQ1RDMnRqOG10QllkRm5za0FUclc5dnVrOW9MRG9rVVl3NkZ4c3l2RApObGtBc1dHUjdlblpvNy9qb0E5Y1lncFFpYkRnNFNDbkJObmM2dUpyZkpDYVFoZ2VCQWdnTml3NDJOSUlmWUZ2OEJOTzJVTDhpUi93CkpScXBDWEd4Z2xjS2tXMEF3THY0Q2o4YThnSkxHQlk3Q29XbkMvSmN4M2Y0RmY4eVpmZ0h6M0MzS3RYSHQ1WE92ekdNMy9veWg4VjcKR3JFN2xpdVhOaXhVUDdqanZMcGlZVUdwNjFQOTRDRXVFTzc4Q2I3RmZvNndLTlZFMFZKanVoL2NJbi9ES203akVRN1pNcFR5YmtGUApqcXArOENIem0xWndDdy93TzF1R3FDYUtVOWVuK3NFL2NuNm5vS2NGcjY1UDk0T1hBNzVid05PQ1c5ZDNRWXZpN2VBK0pBeUxQSFY5CkxqOFlodEtmRnZucStpaCtNQVNsaFVYZXVyNVZzaDhNUWY2dzZORUtORUxxK25oK01BeDV3bUpJV1poRDZ2cnkrY0VRY0UwVW9jZ3IKcEs0dnhBK0dnQjRXeDN3QmVJVnRvWDR3RFA2d09QTGZKS3l1VC9XREI2VUtrT0ZEL0dJVm9PTnZIbGJYcC92QnNyYzZOOUMzMHYrTAo1azVENnZwaStFRTZHbWc3QXFCZnpzOHo0dmxCSDF4ai93YmY0Mkk1M1lqdEI4MW80SzVqN0gvRDUrV1FCemo3ZzhWQnlOalBVS1lmCkZEWDJNNmgrY0JqUkR3b2Ird3pySmZsQmdXTS9ReGwrVU9UWXoxRFUvcUFOZ3NjK1Exdy8ySEtNL1NuYUV0Sm9NZjFnMDFHWDFzZEcKYXVvenhQT0RUMlNQL1F5cUgzeU45d3U2ODFqNjJHZUl0ejlvRW1CSDB0alBFTXNQUGpZSUlQTFhpTEgyQjdubkd5UkRQRDlvUHQvZwp4SFBXU1FMRTg0TVZrU0NtSDZ5RUJNWG1peXNvZ2ExKzhIOGtRZXo5UWZFU3hOOGZGQzVCR2Z1RHdpVW9ZMytRZCs1UnljampCMXZZCnd3UVRQQ0VuTWdTZlZNVFBGOC9YSjlCVGM0SWw0UG5CaHJMYlE1L0lZZ09CNXdmdkIxQVFLZ0hIRDM2S3Y0TW9pSlNBN2djYjFzM08KaWt0QTlZUDNMZlFyTHdITkQ1cW4vMUpJUVBHRERjZGUveEpJNFBlRGJTOTkzbk5kMkJHZVBqKzRZVWgwUFFxME5xSU9jVjNYT2pMdgpCMDNUL3prdUJrOWtVL3RrNXhpNy9LQysrcC9pTXlzRnVnU2l6akcyMXcrYXBuLzc3Sy81UGI2b0VMRG5pMDNUdjcrUTU4a25nYkJGCjBPNEg5ZFYvTnYzUHdROEVrZWNZbS95Z3lmemNNN1RsU1NDU3Zza1BmbVJaL1UyZ1N5Q1V2aWxmL0xOaCt0dVQzTFMxUVBER0NPVzgKbVh2Tzl2NVpJSGIwTS9qT20zbnVyZXh5U3lDY3Zza1B1bGQvbmdUaTZRUHU4MmJheEh2WW9seHc3Si9EZnQ2TWYvcWY0eHJoL0R1Ugo5RTEra0RQOWVSSUlwRy95ZzVUVlA0OEVJdWtEdWgva1RuK2FCR0xwNjM2UVAvMzlFZ2ltYjlvZjVFOS90d1NpNlFQcTd4TDdnU1dPCk41VEhuM2o2d0ZVTXo3bzdMT0Q5L0VhdVpHcFNYRVlIRTR5d1cxRFJWUDMvQzJyVXFGR0RqLzhBUkpJdnczbUNzK3NBQUFBbGRFVlkKZEdSaGRHVTZZM0psWVhSbEFESXdNalV0TURjdE1EbFVNRGM2TXpFNk1qVXJNREE2TURETEhqY2FBQUFBSlhSRldIUmtZWFJsT20xdgpaR2xtZVFBeU1ESTFMVEEzTFRBNVZEQTNPak14T2pJMUt6QXdPakF3dWtPUHBnQUFBQ2gwUlZoMFpHRjBaVHAwYVcxbGMzUmhiWEFBCk1qQXlOUzB3Tnkwd09WUXdOem96TVRveU5Tc3dNRG93TU8xV3Jua0FBQUFaZEVWWWRGTnZablIzWVhKbEFIZDNkeTVwYm10elkyRncKWlM1dmNtZWI3andhQUFBQUFFbEZUa1N1UW1DQyIgLz4KPC9zdmc+Cg==);
+            background-size: contain;
+            transform-origin: top left;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 9999;
+            will-change: transform;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .corner-ribbon {
+            position: absolute;
+            z-index: 1000;
+            padding: 5px 0;
+            line-height: 1.8;
+            color: #fff;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            width: 320px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+        .github-ribbon {
+            top: 45px;
+            right: -85px;
+            background-color: #333;
+        }
+        .github-ribbon:hover {
+            background-color: #555;
+        }
+        .author-ribbon {
+            top: 80px;
+            right: -85px;
+            background-color: #1a73e8;
+        }
+        .author-ribbon:hover {
+            background-color: #2b7de9;
+        }
+        #page-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 15px;
+            font-size: 13px;
+            color: var(--footer-text-color);
+            background-color: var(--bg-color);
+            z-index: 10;
+            gap: 10px 20px;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        #page-footer a {
+            color: var(--footer-link-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        #page-footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-credits {
+            white-space: nowrap;
+        }
+        .settings-toggles {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        #lang-switcher button {
+            background: none;
+            border: none;
+            color: var(--footer-text-color);
+            cursor: pointer;
+            padding: 5px;
+            font-size: 13px;
+            opacity: 0.6;
+        }
+        #lang-switcher button.active {
+            opacity: 1;
+            font-weight: bold;
+            color: var(--footer-link-color);
+        }
+        #theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            padding: 0;
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px 15px 100px 15px;
+                overflow-y: auto;
+                height: auto;
+                min-height: 100%;
+            }
+            body {
+                overflow: auto;
+            }
+            .logo { 
+                max-height: 60px; 
+                margin-bottom: 20px;
+            }
+            .generator-mode {
+                margin-top: 20px;
+            }
+            .tier-title {
+                font-size: 12px;
+            }
+            .engine-btn {
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+            #engine-description-box {
+                font-size: 13px;
+                min-height: 3em;
+                margin-bottom: 25px;
+            }
+            .action-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            .corner-ribbon {
+                display: none;
+            }
+            #page-footer {
+                font-size: 12px;
+                gap: 5px 15px;
+            }
+            #lang-switcher button, #theme-toggle {
+                font-size: inherit;
+            }
+            #theme-toggle {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body data-i18n-lang="en">
+    <a href="https://github.com/MeowLove/SearchAIO" class="corner-ribbon github-ribbon" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <a href="https://www.cxthhhhh.com" class="corner-ribbon author-ribbon" target="_blank" rel="noopener noreferrer">CXT's Website</a>
+    <div class="main-container">
+        <div class="content">
+            <img id="logo-img" class="logo" alt="Search Engine Logo">
+            <div class="search-bar">
+                <input type="text" id="search-input" autocomplete="off">
+            </div>
+            <div class="buttons-group">
+                <button id="search-btn" class="action-btn"></button>
+                <button id="lucky-btn" class="action-btn" data-i18n-key="luckyBtnText"></button>
+            </div>
+            <div id="generator-section" class="generator-mode hidden">
+                <p data-i18n-key="generatorPrompt"></p>
+                <div id="engine-switcher"></div>
+                <div id="engine-description-box"></div>
+                <button id="copy-btn" class="action-btn" data-i18n-key="copyButton"></button>
+            </div>
+        </div>
+    </div>
+    <div id="cursor" class="hidden"></div>
+    <footer id="page-footer">
+        <div class="footer-credits">
+            <a href="https://www.cxthhhhh.com/search-aio" target="_blank" rel="noopener noreferrer" data-i18n-key="footerTitle"></a>
+            <span data-i18n-key="footerPoweredBy"></span> 
+            <a href="https://www.cxthhhhh.com" target="_blank" rel="noopener noreferrer">CXT</a> 
+            <span data-i18n-key="footerSupport"></span> | 
+            <a href="https://github.com/MeowLove/SearchAIO" target="_blank" rel="noopener noreferrer" data-i18n-key="footerGitHub"></a>
+        </div>
+        <div class="settings-toggles">
+            <div id="lang-switcher">
+                <button data-lang="en">EN</button>
+                <button data-lang="zh">ZH</button>
+                <button data-lang="ru">RU</button>
+            </div>
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const TRANSLATIONS = {
+            en: {
+                title: 'SearchAIO',
+                generatorPrompt: 'Select a search engine, then generate your "tutorial" link.',
+                copyButton: 'Generate and Copy Link',
+                footerTitle: '【SearchAIO】',
+                footerPoweredBy: 'Powered by',
+                footerSupport: '',
+                footerGitHub: 'View on GitHub',
+                tierSearch: 'Search Engines',
+                tierAI: 'AI Chat',
+                inputPlaceholder: 'Enter query and press Enter to search, or generate a link below.',
+                inputEmptyAlert: 'Please enter something to search!',
+                inputEmptyAlertForLink: 'Please enter a question to teach others!',
+                copySuccessAlert: 'Link copied!\n{url}\nNow send it to that lazy person!',
+                copyFailAlert: 'Copy failed, please copy this link manually:',
+                luckyBtnText: "I'm Feeling Lucky",
+                btnGoogle: 'Google Search',
+                btnBing: 'Bing Search',
+                btnBaidu: 'Baidu Search',
+                btnYandex: 'Yandex Search',
+                btnYahoo: 'Yahoo Search',
+                btnSogou: 'Sogou Search',
+                btn360: '360 Search',
+                btnDuckduckgo: 'Search DuckDuckGo',
+                btnBrave: 'Brave Search',
+                btnChatgpt: 'Ask ChatGPT',
+                btnCopilot: 'Ask Copilot',
+                btnXiaoyi: 'Ask Celia',
+                btnQuark: 'Search Quark',
+                btnPerplexity: 'Ask Perplexity',
+                btnPhind: 'Search Phind',
+                btnYou: 'Search You.com',
+                descGoogle: '【Google】The world\'s most popular search engine, part of Google, with integrated AI. Suitable for: Almost all types of general information queries. (Global General Purpose)',
+                descBing: '【Bing】The world\'s second-largest search engine, part of Microsoft, deeply integrated with Copilot AI. Suitable for: General queries, especially for AI-assisted search and image creation. (Integrated with Windows)',
+                descBaidu: '【Baidu】The dominant search engine in China, part of Baidu, with ERNIE Bot AI. Suitable for: Queries in the Chinese-speaking world, with huge advantages in Chinese content. (Dominant in China)',
+                descYandex: '【Yandex】The dominant search engine in Russia. Suitable for: Russian content and powerful reverse image search globally. (Dominant in Eastern Europe)',
+                descYahoo: '【Yahoo】A veteran web portal and search engine. Suitable for: News, finance, and sports. Search results are currently powered by Bing. (Veteran News Portal)',
+                descSogou: '【Sogou】A search engine owned by Tencent. Suitable for: Searching content from specific Chinese social platforms like WeChat Official Accounts and Zhihu. (Social Content Search)',
+                desc360: '【360 Search】A security-focused search engine by Qihoo 360. Suitable for: Users wary of medical ads and fraud. Its strength is intercepting malicious sites. (Focus on Security)',
+                descDuckduckgo: '【DuckDuckGo】The most famous privacy-focused search engine. Suitable for: Users who do not want their search history tracked. It promises unbiased results. (Privacy-focused)',
+                descBrave: '【Brave Search】An independent search engine from the Brave browser. Suitable for: Users seeking results independent of big tech. It uses its own index. (Independent Index & Privacy)',
+                descChatgpt: '【ChatGPT】A leading AI conversational model by OpenAI. Suitable for: Explanations, creative writing, code generation, and direct answers, not just links. (Generative AI Q&A)',
+                descCopilot: '【Copilot】An AI assistant by Microsoft, based on the GPT model. Suitable for: Conversational creation needing real-time web info. Integrated into Bing for sourced answers. (Real-time AI Chat)',
+                descXiaoyi: '【Celia】A smart assistant by Huawei, based on the Pangu model. Suitable for: Huawei ecosystem users for cross-device operations and smart Q&A. (Huawei Ecosystem AI)',
+                descQuark: '【Quark】An app by Alibaba with a smart search focus. Suitable for: Students and young users, offering ad-free search, cloud storage, and scanning tools. (Smart Tool Integration)',
+                descPerplexity: '【Perplexity】An AI "answer engine." Suitable for: Academic or research queries needing sourced, cited answers. It provides links for its responses. (Sourced Answers)',
+                descPhind: '【Phind】An AI search engine for developers. Suitable for: Finding programming solutions, code examples, and technical documentation. (For Developers)',
+                descYou: '【You.com】A customizable AI search engine. Suitable for: Users who want a mix of traditional search, AI chat, and various apps in one interface. (Personalized App Integration)',
+            },
+            zh: {
+                title: 'SearchAIO',
+                generatorPrompt: '选择搜索引擎，然后生成你的“教学”链接。',
+                copyButton: '生成并复制链接',
+                footerTitle: '【SearchAIO】',
+                footerPoweredBy: '由',
+                footerSupport: '提供技术支持',
+                footerGitHub: '在 GitHub 上查看',
+                tierSearch: '搜索引擎',
+                tierAI: 'AI 对话',
+                inputPlaceholder: '输入内容按回车直接搜索，或在下方生成链接',
+                inputEmptyAlert: '请输入要搜索的内容！',
+                inputEmptyAlertForLink: '你还没输入要教别人的问题呢！',
+                copySuccessAlert: '链接已复制！\n{url}\n快发给那个伸手党吧！',
+                copyFailAlert: '复制失败，请手动复制：',
+                luckyBtnText: '手气不错',
+                btnGoogle: 'Google 搜索',
+                btnBing: 'Bing 搜索',
+                btnBaidu: '百度一下',
+                btnYandex: 'Yandex 搜索',
+                btnYahoo: 'Yahoo 搜索',
+                btnSogou: '搜狗搜索',
+                btn360: '360搜索',
+                btnDuckduckgo: 'DuckDuckGo 搜索',
+                btnBrave: 'Brave 搜索',
+                btnChatgpt: '问 ChatGPT',
+                btnCopilot: '问 Copilot',
+                btnXiaoyi: '问 Celia',
+                btnQuark: '搜 夸克',
+                btnPerplexity: '问 Perplexity',
+                btnPhind: '搜 Phind',
+                btnYou: '搜 You.com',
+                descGoogle: '【Google】全球市场份额最高的搜索引擎，谷歌旗下，集成AI搜索。适用于：几乎所有类型的通用信息查询。提供网页、图片、视频、新闻等全面的搜索服务。（全球性通用）',
+                descBing: '【Bing】全球第二大搜索引擎，微软旗下，深度集成Copilot AI。适用于：通用信息查询，尤其是在AI辅助搜索和图像创建方面。提供全面的网页、图片和视频搜索服务。（与Windows系统深度整合）',
+                descBaidu: '【Baidu】中国市场份额最高的搜索引擎，百度旗下，集成文心一言AI。适用于：中文世界的通用信息查询。在网页、贴吧、知道、百科等中文内容领域拥有巨大优势。（中国市场主导）',
+                descYandex: '【Yandex】俄罗斯市场份额最高的搜索引擎。适用于：俄语内容搜索，并在全球范围内提供强大的图片反向搜索功能。服务涵盖网页、图片、地图、翻译等。（东欧市场主导）',
+                descYahoo: '【Yahoo】历史悠久的门户式搜索引擎，雅虎旗下。适用于：查找新闻、财经、体育等时效性强的资讯。其搜索结果目前主要由Bing提供技术支持。（老牌资讯门户）',
+                descSogou: '【Sogou】腾讯旗下的搜索引擎。适用于：查找特定中文社交平台内容。其特色是能够独家搜索微信公众号文章及与知乎的深度合作内容。（社交内容搜索）',
+                desc360: '【360搜索】奇虎360旗下的安全搜索引擎。适用于：对医疗、广告、诈骗信息高度警惕的用户。其核心优势在于拦截恶意网站和过滤推广链接。（主打安全纯净）',
+                descDuckduckgo: '【DuckDuckGo】全球最著名的隐私搜索引擎。适用于：不希望个人搜索行为被追踪的用户。它承诺不记录用户个人信息，提供中立、无偏见的搜索结果。（注重隐私保护）',
+                descBrave: '【Brave Search】由Brave浏览器推出的独立搜索引擎。适用于：追求不受大型科技公司影响的、真正独立的搜索结果。它建立在自己的索引之上，并强调隐私保护。（独立索引与隐私）',
+                descChatgpt: '【ChatGPT】OpenAI开发的领先AI对话模型。适用于：获取概念解释、创意写作、代码生成、文本摘要等任务。它提供直接、连贯的生成性回答而非网页链接。（生成式AI问答）',
+                descCopilot: '【Copilot】微软基于GPT模型打造的AI助手。适用于：需要结合最新网络信息进行对话和创作的场景。它深度集成于Bing搜索，能够提供有来源的实时信息和多模态创作。（实时信息AI对话）',
+                descXiaoyi: '【Celia】华为推出的智慧助手，基于盘古大模型。适用于：华为生态用户，进行跨设备操作和智能问答。深度整合于HarmonyOS。（华为生态AI助手）',
+                descQuark: '【Quark】阿里巴巴旗下，主打智能搜索的浏览器和应用。适用于：学生和年轻用户，提供无广告的纯净搜索、网盘、扫描和文档工具等整合服务。（智能工具集成）',
+                descPerplexity: '【Perplexity】被称为“答案引擎”的AI搜索工具。适用于：需要严谨、有来源依据的答案的场景，如学术研究或报告撰写。它会为每个回答附上信息来源链接。（答案溯源）',
+                descPhind: '【Phind】专为开发者和技术人员打造的AI搜索引擎。适用于：查找编程问题、代码示例、API文档和技术解决方案。它能提供精准的代码片段和技术解释。（开发者专用）',
+                descYou: '【You.com】可高度定制化的AI搜索引擎。适用于：希望在一个界面中整合传统搜索、AI聊天和各种应用（如社交媒体、编程网站）的用户。提供个性化的搜索体验。（个性化应用集成）',
+            },
+            ru: {
+                title: 'SearchAIO',
+                generatorPrompt: 'Выберите поисковую систему, затем сгенерируйте ссылку для "обучения".',
+                copyButton: 'Сгенерировать и скопировать',
+                footerTitle: '【SearchAIO】',
+                footerPoweredBy: 'Разработано',
+                footerSupport: '',
+                footerGitHub: 'Смотреть на GitHub',
+                tierSearch: 'Поисковые системы',
+                tierAI: 'AI-чаты',
+                inputPlaceholder: 'Введите запрос и нажмите Enter для поиска или создайте ссылку ниже.',
+                inputEmptyAlert: 'Пожалуйста, введите что-нибудь для поиска!',
+                inputEmptyAlertForLink: 'Пожалуйста, введите вопрос, чтобы научить других!',
+                copySuccessAlert: 'Ссылка скопирована!\n{url}\nТеперь отправьте ее тому ленивому человеку!',
+                copyFailAlert: 'Не удалось скопировать. Пожалуйста, скопируйте эту ссылку вручную:',
+                luckyBtnText: 'Мне повезёт!',
+                btnGoogle: 'Поиск в Google',
+                btnBing: 'Поиск в Bing',
+                btnBaidu: 'Поиск в Baidu',
+                btnYandex: 'Поиск в Яндексе',
+                btnYahoo: 'Поиск в Yahoo',
+                btnSogou: 'Поиск в Sogou',
+                btn360: 'Поиск в 360',
+                btnDuckduckgo: 'Поиск в DuckDuckGo',
+                btnBrave: 'Поиск в Brave',
+                btnChatgpt: 'Спросить ChatGPT',
+                btnCopilot: 'Спросить Copilot',
+                btnXiaoyi: 'Спросить Celia',
+                btnQuark: 'Поиск в Quark',
+                btnPerplexity: 'Спросить Perplexity',
+                btnPhind: 'Поиск в Phind',
+                btnYou: 'Поиск в You.com',
+                descGoogle: '【Google】Самая популярная в мире поисковая система от Google с интегрированным ИИ. Подходит для: практически любых общих информационных запросов. (Глобальное использование)',
+                descBing: '【Bing】Вторая по величине поисковая система в мире от Microsoft с глубокой интеграцией Copilot AI. Подходит для: общих запросов, особенно для поиска с помощью ИИ и создания изображений. (Интегрирована с Windows)',
+                descBaidu: '【Baidu】Доминирующая поисковая система в Китае от Baidu с ERNIE Bot AI. Подходит для: запросов в китаеязычном мире с огромными преимуществами в китайском контенте. (Доминирует в Китае)',
+                descYandex: '【Яндекс】Доминирующая поисковая система в России. Подходит для: русскоязычного контента и мощного обратного поиска изображений по всему миру. (Доминирует в Восточной Европе)',
+                descYahoo: '【Yahoo】Ветеран веб-порталов и поисковых систем. Подходит для: новостей, финансов и спорта. Результаты поиска в настоящее время предоставляются Bing. (Ветеран новостных порталов)',
+                descSogou: '【Sogou】Поисковая система, принадлежащая Tencent. Подходит для: поиска контента с определенных китайских социальных платформ, таких как официальные аккаунты WeChat и Zhihu. (Поиск в соцсетях)',
+                desc360: '【360 Search】Поисковая система от Qihoo 360, ориентированная на безопасность. Подходит для: пользователей, остерегающихся медицинской рекламы и мошенничества. Ее сила в блокировке вредоносных сайтов. (Фокус на безопасности)',
+                descDuckduckgo: '【DuckDuckGo】Самая известная поисковая система, ориентированная на конфиденциальность. Подходит для: пользователей, которые не хотят, чтобы их история поиска отслеживалась. Гарантирует объективные результаты. (Ориентирована на конфиденциальность)',
+                descBrave: '【Brave Search】Независимая поисковая система от браузера Brave. Подходит для: пользователей, ищущих результаты, не зависящие от крупных технологических компаний. Использует собственный индекс. (Независимый индекс и конфиденциальность)',
+                descChatgpt: '【ChatGPT】Ведущая диалоговая модель ИИ от OpenAI. Подходит для: объяснений, творческого письма, генерации кода и прямых ответов, а не просто ссылок. (Генеративный ИИ для ответов)',
+                descCopilot: '【Copilot】ИИ-помощник от Microsoft на базе модели GPT. Подходит для: диалогового творчества, требующего актуальной веб-информации. Интегрирован в Bing для ответов с указанием источников. (ИИ-чат в реальном времени)',
+                descXiaoyi: '【Celia】Умный помощник от Huawei на базе модели Pangu. Подходит для: пользователей экосистемы Huawei для операций между устройствами и умных ответов. (ИИ для экосистемы Huawei)',
+                descQuark: '【Quark】Приложение от Alibaba с фокусом на умный поиск. Подходит для: студентов и молодых пользователей, предлагая поиск без рекламы, облачное хранилище и инструменты для сканирования. (Интеграция умных инструментов)',
+                descPerplexity: '【Perplexity】ИИ-инструмент, называемый "движком ответов". Подходит для: академических или исследовательских запросов, требующих ответов с цитированием источников. (Ответы с источниками)',
+                descPhind: '【Phind】ИИ-поисковик для разработчиков. Подходит для: поиска решений программных проблем, примеров кода и технической документации. (Для разработчиков)',
+                descYou: '【You.com】Настраиваемый ИИ-поисковик. Подходит для: пользователей, которым нужен микс из традиционного поиска, ИИ-чата и различных приложений в одном интерфейсе. (Интеграция персонализированных приложений)',
+            }
+        };
+
+        const ENGINES = {
+            google: { name: 'Google', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/google_logo.png', searchUrl: 'https://www.google.com/search?q=%s', themeColor: '#4285f4', luckyBtn: true, searchBtnTextKey: 'btnGoogle', descriptionKey: 'descGoogle' },
+            bing: { name: 'Bing', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/bing_logo.png', searchUrl: 'https://www.bing.com/search?q=%s', themeColor: '#007daa', luckyBtn: false, searchBtnTextKey: 'btnBing', descriptionKey: 'descBing' },
+            baidu: { name: 'Baidu', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/baidu_logo.png', searchUrl: 'https://www.baidu.com/s?wd=%s', themeColor: '#3245f0', luckyBtn: false, searchBtnTextKey: 'btnBaidu', descriptionKey: 'descBaidu' },
+            yandex: { name: 'Yandex', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/yandex_logo.png', searchUrl: 'https://yandex.com/search/?text=%s', themeColor: '#ff0000', luckyBtn: false, searchBtnTextKey: 'btnYandex', descriptionKey: 'descYandex' },
+            yahoo: { name: 'Yahoo', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/yahoo_logo.png', searchUrl: 'https://search.yahoo.com/search?p=%s', themeColor: '#6001d2', luckyBtn: false, searchBtnTextKey: 'btnYahoo', descriptionKey: 'descYahoo' },
+            sogou: { name: 'Sogou', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/sogou_logo.png', searchUrl: 'https://www.sogou.com/web?query=%s', themeColor: '#ff6900', luckyBtn: false, searchBtnTextKey: 'btnSogou', descriptionKey: 'descSogou' },
+            '360': { name: '360搜索', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/360search_logo.png', searchUrl: 'https://www.so.com/s?q=%s', themeColor: '#19b955', luckyBtn: false, searchBtnTextKey: 'btn360', descriptionKey: 'desc360' },
+            duckduckgo: { name: 'DuckDuckGo', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/duckduckgo_logo.png', searchUrl: 'https://duckduckgo.com/?q=%s', themeColor: '#de5833', luckyBtn: false, searchBtnTextKey: 'btnDuckduckgo', descriptionKey: 'descDuckduckgo' },
+            brave: { name: 'Brave', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/brave_logo.png', searchUrl: 'https://search.brave.com/search?q=%s', themeColor: '#FF5722', luckyBtn: false, searchBtnTextKey: 'btnBrave', descriptionKey: 'descBrave' },
+            chatgpt: { name: 'ChatGPT', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/chatgpt_logo.png', searchUrl: 'https://chatgpt.com/?q=%s', themeColor: '#75A99C', luckyBtn: false, searchBtnTextKey: 'btnChatgpt', descriptionKey: 'descChatgpt' },
+            copilot: { name: 'Copilot', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/copilot_logo.png', searchUrl: 'https://www.bing.com/search?q=%s&showconv=1', themeColor: '#00B6FF', luckyBtn: false, searchBtnTextKey: 'btnCopilot', descriptionKey: 'descCopilot' },
+            xiaoyi: { name: 'Celia', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/xiaoyi_logo.png', searchUrl: 'https://xiaoyi.huawei.com/?q=%s', themeColor: '#1A72E9', luckyBtn: false, searchBtnTextKey: 'btnXiaoyi', descriptionKey: 'descXiaoyi' },
+            quark: { name: 'Quark', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/quark_logo.png', searchUrl: 'https://ai.quark.cn/s?q=%s', themeColor: '#17C465', luckyBtn: false, searchBtnTextKey: 'btnQuark', descriptionKey: 'descQuark' },
+            perplexity: { name: 'Perplexity', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/perplexity_logo.png', searchUrl: 'https://www.perplexity.ai/search?q=%s', themeColor: '#000000', luckyBtn: false, searchBtnTextKey: 'btnPerplexity', descriptionKey: 'descPerplexity' },
+            phind: { name: 'Phind', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/phind_logo.png', searchUrl: 'https://www.phind.com/search?q=%s', themeColor: '#17092C', luckyBtn: false, searchBtnTextKey: 'btnPhind', descriptionKey: 'descPhind' },
+            you: { name: 'You.com', logo: 'https://www.cxthhhhh.com/CXT-Lib/SearchAIO/img/youcom.png', searchUrl: 'https://you.com/search?q=%s', themeColor: '#0066FF', luckyBtn: false, searchBtnTextKey: 'btnYou', descriptionKey: 'descYou' }
+        };
+
+        const TIER_ORDER = [
+          { titleKey: 'tierSearch', keys: ['google', 'bing', 'baidu', 'yandex', 'yahoo', 'sogou', '360', 'duckduckgo', 'brave'] },
+          { titleKey: 'tierAI', keys: ['chatgpt', 'copilot', 'xiaoyi', 'quark', 'perplexity', 'phind', 'you'] }
+        ];
+        
+        const domTitle = document.querySelector('title');
+        const logoImg = document.getElementById('logo-img');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const luckyBtn = document.getElementById('lucky-btn');
+        const cursor = document.getElementById('cursor');
+        const generatorSection = document.getElementById('generator-section');
+        const engineSwitcher = document.getElementById('engine-switcher');
+        const copyBtn = document.getElementById('copy-btn');
+        const root = document.documentElement;
+        const descriptionBox = document.getElementById('engine-description-box');
+        const langSwitcher = document.getElementById('lang-switcher');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        let currentEngineKey = 'google';
+        let currentLang = 'en';
+        let currentTheme = 'light';
+        
+        function setLanguage(lang) {
+            currentLang = TRANSLATIONS[lang] ? lang : 'en';
+            document.documentElement.lang = currentLang;
+            document.body.setAttribute('data-i18n-lang', currentLang);
+            localStorage.setItem('lang', currentLang);
+            
+            const langPack = TRANSLATIONS[currentLang];
+
+            domTitle.textContent = langPack.title;
+            document.querySelectorAll('[data-i18n-key]').forEach(el => {
+                const key = el.dataset.i18nKey;
+                if (key in langPack) {
+                    if (el.tagName === 'INPUT') {
+                        el.placeholder = langPack[key];
+                    } else {
+                        el.textContent = langPack[key];
+                    }
+                }
+            });
+            
+            langSwitcher.querySelectorAll('button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === currentLang);
+            });
+
+            setupGenerator();
+            setupUI(currentEngineKey);
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme === 'dark' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+        const engineFromUrl = urlParams.get('s');
+        const langFromUrl = urlParams.get('lang');
+        const themeFromUrl = urlParams.get('theme');
+
+        const initialLang = langFromUrl || localStorage.getItem('lang') || 'zh';
+        setLanguage(initialLang);
+
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = themeFromUrl || localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+        setTheme(initialTheme);
+
+
+        if (query && ENGINES[engineFromUrl]) {
+            generatorSection.classList.add('hidden');
+            descriptionBox.classList.add('hidden');
+            document.querySelector('.corner-ribbon').style.display = 'none';
+            document.querySelector('.corner-ribbon.author-ribbon').style.display = 'none';
+            currentEngineKey = engineFromUrl;
+            setupUI(currentEngineKey);
+            document.body.style.cursor = 'none';
+            startAnimation(query);
+        } else {
+            setupGenerator();
+        }
+
+        function setupUI(engineKey) {
+            const config = ENGINES[engineKey];
+            if (!config) return; 
+
+            logoImg.src = config.logo;
+            logoImg.alt = config.name;
+            searchBtn.textContent = TRANSLATIONS[currentLang][config.searchBtnTextKey] || config.name;
+            if (descriptionBox) {
+                descriptionBox.textContent = TRANSLATIONS[currentLang][config.descriptionKey] || '...';
+            }
+            
+            root.style.setProperty('--theme-color', config.themeColor);
+
+            if(config.name === 'Bing' || config.name === 'DuckDuckGo' || config.name === 'Brave' || config.name === 'Copilot' || config.name === 'Quark'){
+                logoImg.style.maxHeight = '40px';
+                logoImg.style.width = 'auto';
+            } else {
+                logoImg.style.maxHeight = '92px';
+            }
+
+            config.luckyBtn ? luckyBtn.classList.remove('hidden') : luckyBtn.classList.add('hidden');
+        }
+
+        function setupGenerator() {
+            generatorSection.classList.remove('hidden');
+            engineSwitcher.innerHTML = '';
+
+            const langPack = TRANSLATIONS[currentLang];
+
+            TIER_ORDER.forEach(tier => {
+                const tierContainer = document.createElement('div');
+                const tierTitle = document.createElement('h4');
+                tierTitle.className = 'tier-title';
+                tierTitle.textContent = langPack[tier.titleKey];
+                tierContainer.appendChild(tierTitle);
+
+                const row = document.createElement('div');
+                row.className = 'tier-row';
+                
+                tier.keys.forEach(key => {
+                    const config = ENGINES[key];
+                    if (!config) return;
+
+                    const btn = document.createElement('button');
+                    btn.className = 'engine-btn';
+                    btn.dataset.engine = key;
+                    btn.textContent = config.name;
+                    if (key === currentEngineKey) {
+                        btn.classList.add('active');
+                    }
+                    btn.addEventListener('click', () => {
+                        currentEngineKey = key;
+                        document.querySelectorAll('.engine-btn.active').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        setupUI(key);
+                    });
+                    row.appendChild(btn);
+                });
+                tierContainer.appendChild(row);
+                engineSwitcher.appendChild(tierContainer);
+            });
+            
+            setupUI(currentEngineKey);
+            searchInput.placeholder = langPack.inputPlaceholder;
+            
+            copyBtn.addEventListener('click', generateAndCopyLink);
+            searchBtn.addEventListener('click', performDirectSearch);
+            luckyBtn.addEventListener('click', performDirectSearch);
+            
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    performDirectSearch();
+                }
+            });
+        }
+        
+        langSwitcher.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                setLanguage(e.target.dataset.lang);
+            }
+        });
+        themeToggle.addEventListener('click', () => {
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+        
+        function performDirectSearch() {
+            const userQuery = searchInput.value.trim();
+            if (!userQuery) {
+                alert(TRANSLATIONS[currentLang].inputEmptyAlert || 'Please enter something to search!');
+                searchInput.focus();
+                return;
+            }
+            const config = ENGINES[currentEngineKey];
+            const finalUrl = config.searchUrl.replace('%s', encodeURIComponent(userQuery));
+            window.open(finalUrl, '_blank');
+        }
+
+        function generateAndCopyLink() {
+            const userQuery = searchInput.value.trim();
+            if (!userQuery) {
+                alert(TRANSLATIONS[currentLang].inputEmptyAlertForLink || 'Please enter a question to teach others!');
+                searchInput.focus();
+                return;
+            }
+            const shareableUrl = `${window.location.origin}${window.location.pathname}?s=${currentEngineKey}&q=${encodeURIComponent(userQuery)}&lang=${currentLang}&theme=${currentTheme}`;
+            
+            navigator.clipboard.writeText(shareableUrl).then(() => {
+                alert((TRANSLATIONS[currentLang].copySuccessAlert || 'Link copied!').replace('{url}', shareableUrl));
+            }).catch(err => {
+                prompt(TRANSLATIONS[currentLang].copyFailAlert || 'Copy failed, please copy manually:', shareableUrl);
+            });
+        }
+
+        async function startAnimation(text) {
+            cursor.classList.remove('hidden');
+            await delay(10); 
+
+            searchInput.disabled = true;
+            searchInput.placeholder = '';
+            await delay(500); 
+            
+            await moveCursorTo(searchInput, {x: 30, y: 'center'});
+            await clickEffect();
+            searchInput.focus();
+            
+            await typeText(searchInput, text);
+            await delay(500);
+            
+            await moveCursorTo(searchBtn, {x: 'center', y: 'center'});
+            await clickEffect();
+
+            searchBtn.style.transform = 'scale(0.95)';
+            searchBtn.style.filter = 'brightness(0.9)';
+            await delay(250);
+            
+            let finalUrl = ENGINES[currentEngineKey].searchUrl;
+            finalUrl = finalUrl.replace('%s', encodeURIComponent(text));
+            window.location.href = finalUrl;
+        }
+
+        function moveCursorTo(element, offset = {x: 0, y: 0}) {
+            const rect = element.getBoundingClientRect();
+            const targetX = rect.left + (offset.x === 'center' ? rect.width / 2 : offset.x);
+            const targetY = rect.top + (offset.y === 'center' ? rect.height / 2 : offset.y);
+            cursor.style.transform = `translate(${targetX}px, ${targetY}px)`;
+            return delay(800); 
+        }
+
+        async function clickEffect() {
+            const currentTransform = cursor.style.transform;
+            cursor.style.transition = 'transform 0.1s ease-in-out';
+            cursor.style.transform = `${currentTransform} scale(0.8)`;
+            await delay(100);
+            cursor.style.transform = currentTransform;
+            await delay(100);
+            cursor.style.transition = 'transform 0.7s cubic-bezier(0.25, 1, 0.5, 1)';
+        }
+
+        function typeText(element, text) {
+            return new Promise(resolve => {
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < text.length) {
+                        element.value += text[i];
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 120); 
+            });
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    });
+    </script>
+</body>
+</html>
