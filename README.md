@@ -37,12 +37,16 @@
 
 ### As a Personal Search Hub
 
+![SearchAIO Screenshot](https://github.com/MeowLove/SearchAIO/blob/main/img/SearchAIO_As_a_Personal_Search_Hub.gif)
+
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select your preferred search engine from the list.
 3.  Type your query into the search bar.
 4.  Press `Enter` or click the main search button to perform the search in a new tab.
 
 ### To Generate a "Tutorial" Link
+
+![SearchAIO Screenshot](https://github.com/MeowLove/SearchAIO/blob/main/img/SearchAIO_To_Generate_a_Tutorial_Link.gif)
 
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select the search engine you want to demonstrate.
