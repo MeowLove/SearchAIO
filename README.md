@@ -7,22 +7,22 @@
 
 **SearchAIO** is a powerful, all-in-one search portal that evolves from a fun "Let Me Search For You" tool into a versatile daily search hub. It seamlessly integrates major traditional search engines and cutting-edge AI chats, offering two distinct functionalities in one sleek interface.
 
-**[➡️ Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)** | **[📖 Project Introduction](https://www.cxthhhhh.com/search-aio/)**
-
-![SearchAIO Screenshot](https://github.com/MeowLove/SearchAIO/blob/main/img/SearchAIO_Screenshot_EN.png)
-
----
+**[📖 Project Introduction](https://www.cxthhhhh.com/search-aio/)** | **[➡️ Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**
 
 <div align="center">
   <p>
-    <a href="README_CN.md">简体中文</a> | <b>English</b>
+    <a href="README_CN.md">简体中文</a> | <b>English</b> | <a href="README_RU.md">Русский</a>
   </p>
 </div>
+
+![SearchAIO Screenshot](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_Screenshot_EN.png)
+
+---
 
 ## ✨ Features
 
 -   **Dual-Functionality**:
-    -   **All-in-One Search Hub**: Use it as your personal start page to quickly search across 14+ different engines.
+    -   **All-in-One Search Hub**: Use it as your personal start page to quickly search across 16+ different engines.
     -   **"Let Me Search For You" Tool**: Generate a shareable link that demonstrates the entire search process to others, from typing the query to clicking the search button.
 -   **Extensive Engine Support**: Integrates with Google, Bing, Baidu, Yandex, DuckDuckGo, ChatGPT, Copilot, Perplexity, and more.
 -   **Internationalization (i18n)**: Fully supports English, Chinese (中文), and Russian (Русский), with language selection saved locally.
@@ -37,7 +37,7 @@
 
 ### As a Personal Search Hub
 
-![SearchAIO_As_a_Personal_Search_Hub_gif](https://github.com/MeowLove/SearchAIO/blob/main/img/SearchAIO_As_a_Personal_Search_Hub.gif)
+![How to use SearchAIO as a personal search hub](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.gif)
 
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select your preferred search engine from the list.
@@ -46,7 +46,7 @@
 
 ### To Generate a "Tutorial" Link
 
-![SearchAIO_To_Generate_a_Tutorial_Link_gif](https://github.com/MeowLove/SearchAIO/blob/main/img/SearchAIO_To_Generate_a_Tutorial_Link.gif)
+![How to generate a tutorial link with SearchAIO](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_To_Generate_a_Tutorial_Link.gif)
 
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select the search engine you want to demonstrate.
@@ -72,5 +72,4 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ## 📄 License
 
-This project is licensed under the **GPL-3.0 license**. See the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the **GPL-3.0 license**. See the [LICENSE](https://github.com/MeowLove/SearchAIO/blob/main/LICENSE) file for details.
