@@ -1,0 +1,10 @@
+{
+  "name": "searchaio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:static": "node tools/build-static.mjs",
+    "test": "node --test test/*.test.js",
+    "check": "node --check src/main.js && node --check src/config/engines.js && node --check src/services/router.js"
+  }
+}

@@ -1,0 +1,2 @@
+# Local recovery snapshots. Keep these available locally, but never publish them.
+/archive/

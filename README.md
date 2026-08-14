@@ -22,13 +22,13 @@
 ## ✨ Features
 
 -   **Dual-Functionality**:
-    -   **All-in-One Search Hub**: Use it as your personal start page to quickly search across 16+ different engines.
+    -   **All-in-One Search Hub**: Use it as your personal start page to quickly search across 76 search and AI services.
     -   **"Let Me Search For You" Tool**: Generate a shareable link that demonstrates the entire search process to others, from typing the query to clicking the search button.
 -   **Extensive Engine Support**: Integrates with Google, Bing, Baidu, Yandex, DuckDuckGo, ChatGPT, Copilot, Perplexity, and more.
 -   **Internationalization (i18n)**: Fully supports English, Chinese (中文), and Russian (Русский), with language selection saved locally.
 -   **Dark/Light Mode**: Offers a beautiful, theme-switchable interface that automatically adapts to your system's preference and can be toggled manually.
 -   **Fully Responsive**: Provides a seamless experience across desktop, tablet, and mobile devices.
--   **Zero Dependencies**: Built with vanilla HTML, CSS, and JavaScript. No frameworks, no build steps, just one single file.
+-   **Zero Runtime Dependencies**: Built with vanilla HTML, CSS, and ES Modules. No framework or build step is required for deployment.
 -   **Informative**: Includes descriptions for each search engine, helping users choose the right tool for their needs.
 
 ---
@@ -51,8 +51,9 @@
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select the search engine you want to demonstrate.
 3.  Type the question you were asked into the search bar.
-4.  Click the **"Generate and Copy Link"** button at the bottom.
-5.  Send the copied link to the person who needs to learn how to search!
+4.  Click **"Create tutorial link (copy)"** to copy the exact tutorial URL.
+5.  Where supported, **"Share directly"** opens the system share sheet with the query, engine, and tutorial URL.
+6.  Send the link to the person who needs to learn how to search!
 
 ---
 
@@ -62,7 +63,17 @@
 -   **CSS3** (with CSS Variables for theming)
 -   **Vanilla JavaScript** (ES6+)
 
-The entire application is contained within a single `SearchAIO.html` file, making it extremely lightweight and portable.
+`SearchAIO.html` is the application source file; rename it to `index.html` when deploying. Its code is separated into an engine registry, i18n, preferences, URL routing, tutorial animation, and UI modules. Double-clicking the file uses the standalone runtime; HTTP deployments use ES Modules.
+
+## ⌨️ Fast routing and maintenance
+
+- Use `google: query` or `!g query` to route directly; each engine button exposes its aliases in its tooltip.
+- `Ctrl/Cmd + K` focuses search, `Alt + ↑/↓` changes engines, and `Esc` closes suggestions or dialogs.
+- Favorites stay in the current browser only. Search history is not collected.
+- Open `SearchAIO.html?selftest=1` after changing the engine registry, or run `npm test` where Node.js is available.
+- After changing `src/*.js`, run `npm run build:static`, then rename `SearchAIO.html` to `index.html` for deployment.
+
+Read [`ARCHITECTURE.md`](ARCHITECTURE.md) for the product contract, module layout, and registry rules.
 
 ---
 
