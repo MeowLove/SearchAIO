@@ -1,5 +1,7 @@
 # SearchAIO - The All-in-One Search Portal
 
+![Version](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
+
 [![GitHub Stars](https://img.shields.io/github/stars/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/stargazers)
 [![Fork](https://img.shields.io/github/forks/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/network/members)
 [![License](https://img.shields.io/github/license/MeowLove/SearchAIO?style=flat-square&color=blue)](https://github.com/MeowLove/SearchAIO/blob/main/LICENSE)
@@ -46,7 +48,7 @@ https://github.com/user-attachments/assets/41f9c122-5d37-46cb-99c3-886bb2dab3d0
 
 ### To Generate a "Tutorial" Link
 
-![How to generate a tutorial link with SearchAIO](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_To_Generate_a_Tutorial_Link.gif)
+https://github.com/user-attachments/assets/0bb11175-036f-464b-b8a1-6721d973e057
 
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select the search engine you want to demonstrate.
