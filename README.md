@@ -11,7 +11,7 @@
 
 <div align="center">
   <p>
-    <a href="README_CN.md">简体中文</a> | <b>English</b> | <a href="README_RU.md">Русский</a>
+    <b>English</b> | <a href="docs/i18n/README.zh-CN.md">简体中文</a> | <a href="docs/i18n/README.ru.md">Русский</a> | <a href="docs/i18n/README.es.md">Español</a> | <a href="docs/i18n/README.fr.md">Français</a> | <a href="docs/i18n/README.ar.md">العربية</a> | <a href="docs/i18n/README.pt-BR.md">Português (Brasil)</a> | <a href="docs/i18n/README.ja.md">日本語</a> | <a href="docs/i18n/README.de.md">Deutsch</a>
   </p>
 </div>
 
@@ -25,7 +25,7 @@
     -   **All-in-One Search Hub**: Use it as your personal start page to quickly search across 76 search and AI services.
     -   **"Let Me Search For You" Tool**: Generate a shareable link that demonstrates the entire search process to others, from typing the query to clicking the search button.
 -   **Extensive Engine Support**: Integrates with Google, Bing, Baidu, Yandex, DuckDuckGo, ChatGPT, Copilot, Perplexity, and more.
--   **Internationalization (i18n)**: Fully supports English, Chinese (中文), and Russian (Русский), with language selection saved locally.
+-   **Internationalization (i18n)**: Supports English, Chinese, Russian, Spanish, French, Arabic, Brazilian Portuguese, Japanese, and German; the selected language is saved locally.
 -   **Dark/Light Mode**: Offers a beautiful, theme-switchable interface that automatically adapts to your system's preference and can be toggled manually.
 -   **Fully Responsive**: Provides a seamless experience across desktop, tablet, and mobile devices.
 -   **Zero Runtime Dependencies**: Built with vanilla HTML, CSS, and ES Modules. No framework or build step is required for deployment.

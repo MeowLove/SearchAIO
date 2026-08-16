@@ -12,4 +12,8 @@ test('every supported locale provides the UI and engine description keys', () =>
     assert.deepEqual(englishKeys.filter((key) => !TRANSLATIONS[language][key]), [], `missing ${language} UI keys`);
     assert.deepEqual(ENGINES.filter((engine) => !TRANSLATIONS[language][engine.descriptionKey]).map((engine) => engine.id), [], `missing ${language} engine descriptions`);
   }
+
+  for (const language of ['es', 'fr', 'ar', 'pt-BR', 'ja', 'de']) {
+    assert.deepEqual(ENGINES.filter((engine) => TRANSLATIONS[language][engine.descriptionKey] === TRANSLATIONS.en[engine.descriptionKey]).map((engine) => engine.id), [], `${language} descriptions fall back to English`);
+  }
 });

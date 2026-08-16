@@ -304,7 +304,7 @@ function render() {
     elements.wordmark.textContent = engine.name;
   }
   elements.engineDescription.textContent = engine.descriptionKey
-    ? t(engine.descriptionKey)
+    ? t(engine.descriptionKey, { engine: engine.name })
     : t('engineGenericDescription', { engine: engine.name, category: groupLabel(engine.category) });
   const isFavorite = state.favorites.includes(engine.id);
   elements.favoriteButton.textContent = isFavorite ? '★' : '☆';
