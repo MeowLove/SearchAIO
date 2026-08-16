@@ -1,11 +1,9 @@
 # SearchAIO — универсальный поисковый портал
 
-![Версия](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
-
 [![GitHub Stars](https://img.shields.io/github/stars/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/stargazers)
 [![Fork](https://img.shields.io/github/forks/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/network/members)
 [![License](https://img.shields.io/github/license/MeowLove/SearchAIO?style=flat-square&color=blue)](https://github.com/MeowLove/SearchAIO/blob/main/LICENSE)
-[![Project Page](https://img.shields.io/badge/Страница%20проекта-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/)
+[![Project Page](https://img.shields.io/badge/Страница%20проекта-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/) [![Версия](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)](https://github.com/MeowLove/SearchAIO/releases)
 
 **SearchAIO** объединяет основные поисковые системы и современные AI-чаты в ежедневном поисковом центре и создаёт ссылки для демонстрации поиска.
 
@@ -13,7 +11,7 @@
 
 <div align="center"><p><a href="../../README.md">English</a> | <a href="README.zh-CN.md">简体中文</a> | <b>Русский</b> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.ar.md">العربية</a> | <a href="README.pt-BR.md">Português (Brasil)</a> | <a href="README.ja.md">日本語</a> | <a href="README.de.md">Deutsch</a></p></div>
 
-![Скриншот SearchAIO](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_Screenshot_RU.png)
+![Скриншот SearchAIO](../media/SearchAIO_Screenshot_RU.png)
 
 ---
 

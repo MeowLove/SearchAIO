@@ -1,11 +1,9 @@
 # SearchAIO - The All-in-One Search Portal
 
-![Version](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
-
 [![GitHub Stars](https://img.shields.io/github/stars/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/stargazers)
 [![Fork](https://img.shields.io/github/forks/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/network/members)
 [![License](https://img.shields.io/github/license/MeowLove/SearchAIO?style=flat-square&color=blue)](https://github.com/MeowLove/SearchAIO/blob/main/LICENSE)
-[![Project Page](https://img.shields.io/badge/Project%20Page-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/)
+[![Project Page](https://img.shields.io/badge/Project%20Page-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/) [![Version](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)](https://github.com/MeowLove/SearchAIO/releases)
 
 **SearchAIO** is a powerful, all-in-one search portal that evolves from a fun "Let Me Search For You" tool into a versatile daily search hub. It seamlessly integrates major traditional search engines and cutting-edge AI chats, offering two distinct functionalities in one sleek interface.
 
@@ -17,7 +15,7 @@
   </p>
 </div>
 
-![SearchAIO Screenshot](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_Screenshot_EN.png)
+![SearchAIO Screenshot](docs/media/SearchAIO_Screenshot_EN.png)
 
 ---
 

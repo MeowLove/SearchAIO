@@ -1,11 +1,9 @@
 # SearchAIO — بوابة بحث متكاملة
 
-![الإصدار](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
-
 [![GitHub Stars](https://img.shields.io/github/stars/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/stargazers)
 [![Fork](https://img.shields.io/github/forks/MeowLove/SearchAIO?style=flat-square&logo=github)](https://github.com/MeowLove/SearchAIO/network/members)
 [![License](https://img.shields.io/github/license/MeowLove/SearchAIO?style=flat-square&color=blue)](https://github.com/MeowLove/SearchAIO/blob/main/LICENSE)
-[![Project Page](https://img.shields.io/badge/Project%20Page-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/)
+[![Project Page](https://img.shields.io/badge/Project%20Page-Website-green?style=flat-square)](https://www.cxthhhhh.com/search-aio/) [![الإصدار](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)](https://github.com/MeowLove/SearchAIO/releases)
 
 **SearchAIO** يجمع محركات البحث التقليدية ومحادثات الذكاء الاصطناعي في مركز بحث يومي، وينشئ روابط قابلة للمشاركة تعرض عملية البحث كاملة.
 
@@ -13,7 +11,7 @@
 
 <div dir="rtl" align="center"><p><a href="../../README.md">English</a> | <a href="README.zh-CN.md">简体中文</a> | <a href="README.ru.md">Русский</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <b>العربية</b> | <a href="README.pt-BR.md">Português (Brasil)</a> | <a href="README.ja.md">日本語</a> | <a href="README.de.md">Deutsch</a></p></div>
 
-![لقطة SearchAIO](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_Screenshot_EN.png)
+![لقطة SearchAIO](../media/SearchAIO_Screenshot_EN.png)
 
 ---
 
