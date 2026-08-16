@@ -400,6 +400,8 @@ const TRANSLATIONS = {
   }
 };
 
+const SUPPORTED_LANGUAGES = ['zh', 'en', 'ru', 'es', 'fr', 'ar', 'pt-BR', 'ja', 'de'];
+
 const ENGINE_DESCRIPTIONS = {
   zh: {
     engineGoogle: '全球通用网页检索，适合快速查找网站、资料与即时信息。',
@@ -641,6 +643,79 @@ for (const [language, descriptions] of Object.entries(ENGINE_DESCRIPTIONS)) {
   Object.assign(TRANSLATIONS[language], descriptions);
 }
 
+const LOCALE_OVERRIDES = {
+  es: {
+    pageTitle: 'SearchAIO — Búsqueda multiservicio', searchLabel: 'Consulta de búsqueda', searchPlaceholder: 'Busca o usa google: consulta / !g consulta',
+    search: 'Buscar', lucky: 'Voy a tener suerte', copyLink: 'Crear enlace de tutorial (copiar)', directShare: 'Compartir directamente', switchEngine: 'Cambiar motor de búsqueda', enginePanelEyebrow: 'Destino de búsqueda', enginePanelTitle: 'Elige un motor',
+    tutorialEyebrow: 'Déjame buscar por ti', tutorialTitle: 'Crear un enlace de tutorial compartible', tutorialDescription: 'El enlace escribe en el buscador seleccionado y abre el servicio de destino.',
+    groupWeb: 'Búsqueda web', groupSpecialized: 'Especializada, académica y salud', groupAi: 'Chat con IA', groupFavorites: 'Favoritos', favoriteAdd: 'Añadir a favoritos', favoriteRemove: 'Quitar de favoritos',
+    catalogEyebrow: 'Catálogo completo', catalogTitle: 'Todos los motores de búsqueda', catalogSearchLabel: 'Filtrar motores', catalogSearchPlaceholder: 'Nombre, prefijo o !bang', catalogOpen: 'Todos ({{count}})', catalogEmpty: 'No hay motores coincidentes.',
+    footerPrivacy: 'Las preferencias solo se guardan en este navegador.', shortcutsTitle: 'Atajos de teclado', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: 'Enfocar búsqueda', shortcutCycle: 'Cambiar motor', shortcutBangExample: 'g consulta', shortcutBang: 'Buscar con !bang', shortcutClose: 'Cerrar sugerencias o diálogo',
+    routeHint: 'Actual: {{engine}} ({{mode}}). Escribe {{prefix}}: o !{{bang}} para ir directamente.', emptyQuery: 'Introduce algo para buscar.', selectedEngine: 'Cambiado a {{engine}}.',
+    copied: 'Enlace de tutorial copiado.', shared: 'Se abrió el menú para compartir.', shareFailed: 'No se pudo compartir. Usa el botón de copiar.', copyFailed: 'No se pudo copiar automáticamente. Copia este enlace:', popupBlocked: 'El navegador bloqueó la pestaña nueva. Permite ventanas emergentes e inténtalo de nuevo.', registryError: 'Falló la comprobación del registro: {{details}}', promptCopied: 'Mensaje copiado. Pégalo en la página de destino.', promptCopyFailed: 'Se abrió la página de destino. Copia manualmente la consulta original.', engineRetired: '{{engine}} ha cerrado. Se conserva como referencia histórica y no puede buscar.', enginePending: '{{engine}} está pendiente de verificar el inicio de sesión y aún no está disponible.', statusPending: 'pendiente',
+    modeSearch: 'búsqueda web', modeAiSearch: 'IA directa', modePrompt: 'copiar mensaje', modeRetired: 'retirado', engineGenericDescription: '{{engine}} es un destino adicional de {{category}}.'
+  },
+  fr: {
+    pageTitle: 'SearchAIO — Recherche multi-sites', searchLabel: 'Requête de recherche', searchPlaceholder: 'Recherchez ou utilisez google: requête / !g requête',
+    search: 'Rechercher', lucky: 'J’ai de la chance', copyLink: 'Créer un lien de tutoriel (copier)', directShare: 'Partager directement', switchEngine: 'Changer de moteur', enginePanelEyebrow: 'Destination de recherche', enginePanelTitle: 'Choisir un moteur',
+    tutorialEyebrow: 'Je cherche pour vous', tutorialTitle: 'Créer un lien de tutoriel partageable', tutorialDescription: 'Le lien saisit la requête dans la recherche choisie, puis ouvre le service cible.',
+    groupWeb: 'Recherche web', groupSpecialized: 'Spécialisé, académique et santé', groupAi: 'Chat IA', groupFavorites: 'Favoris', favoriteAdd: 'Ajouter aux favoris', favoriteRemove: 'Retirer des favoris',
+    catalogEyebrow: 'Catalogue complet', catalogTitle: 'Tous les moteurs de recherche', catalogSearchLabel: 'Filtrer les moteurs', catalogSearchPlaceholder: 'Nom, préfixe ou !bang', catalogOpen: 'Les {{count}} moteurs', catalogEmpty: 'Aucun moteur ne correspond.',
+    footerPrivacy: 'Les préférences restent dans ce navigateur.', shortcutsTitle: 'Raccourcis clavier', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: 'Placer le curseur dans la recherche', shortcutCycle: 'Changer de moteur', shortcutBangExample: 'g requête', shortcutBang: 'Rechercher avec !bang', shortcutClose: 'Fermer les suggestions ou la boîte de dialogue',
+    routeHint: 'Actuel : {{engine}} ({{mode}}). Saisissez {{prefix}}: ou !{{bang}} pour y accéder directement.', emptyQuery: 'Saisissez une recherche.', selectedEngine: 'Passage à {{engine}}.',
+    copied: 'Lien de tutoriel copié.', shared: 'Partage système ouvert.', shareFailed: 'Le partage système a échoué. Utilisez le bouton copier.', copyFailed: 'Copie automatique impossible. Copiez ce lien :', popupBlocked: 'Le navigateur a bloqué le nouvel onglet. Autorisez les fenêtres contextuelles et réessayez.', registryError: 'Échec de la vérification du registre : {{details}}', promptCopied: 'Instruction copiée. Collez-la dans la page de destination.', promptCopyFailed: 'La page de destination est ouverte. Copiez la requête originale manuellement.', engineRetired: '{{engine}} a fermé. Il reste indexé à titre historique et ne peut plus rechercher.', enginePending: '{{engine}} attend la vérification de connexion et n’est pas encore disponible.', statusPending: 'en attente',
+    modeSearch: 'recherche web', modeAiSearch: 'IA directe', modePrompt: 'copier l’instruction', modeRetired: 'retiré', engineGenericDescription: '{{engine}} est une destination {{category}} supplémentaire.'
+  },
+  ar: {
+    pageTitle: 'SearchAIO — بحث متعدد المواقع', searchLabel: 'استعلام البحث', searchPlaceholder: 'ابحث أو استخدم google: استعلام / !g استعلام',
+    search: 'بحث', lucky: 'ضربة حظ', copyLink: 'إنشاء رابط شرح (نسخ)', directShare: 'مشاركة مباشرة', switchEngine: 'تبديل محرك البحث', enginePanelEyebrow: 'وجهة البحث', enginePanelTitle: 'اختر محركاً',
+    tutorialEyebrow: 'دعني أبحث لك', tutorialTitle: 'إنشاء رابط شرح قابل للمشاركة', tutorialDescription: 'يكتب الرابط الاستعلام في واجهة البحث المحددة ثم يفتح الخدمة المقصودة.',
+    groupWeb: 'بحث الويب', groupSpecialized: 'متخصص وأكاديمي وصحي', groupAi: 'دردشة ذكاء اصطناعي', groupFavorites: 'المفضلة', favoriteAdd: 'إضافة إلى المفضلة', favoriteRemove: 'إزالة من المفضلة',
+    catalogEyebrow: 'الفهرس الكامل', catalogTitle: 'كل محركات البحث', catalogSearchLabel: 'تصفية المحركات', catalogSearchPlaceholder: 'الاسم أو البادئة أو !bang', catalogOpen: 'كل المحركات ({{count}})', catalogEmpty: 'لا توجد محركات مطابقة.',
+    footerPrivacy: 'تُحفظ التفضيلات في هذا المتصفح فقط.', shortcutsTitle: 'اختصارات لوحة المفاتيح', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: 'تركيز حقل البحث', shortcutCycle: 'تغيير المحرك', shortcutBangExample: 'g استعلام', shortcutBang: 'التوجيه باستخدام !bang', shortcutClose: 'إغلاق الاقتراحات أو النافذة',
+    routeHint: 'الحالي: {{engine}} ({{mode}}). اكتب {{prefix}}: أو !{{bang}} للتوجيه مباشرة.', emptyQuery: 'أدخل عبارة للبحث.', selectedEngine: 'تم التبديل إلى {{engine}}.',
+    copied: 'تم نسخ رابط الشرح.', shared: 'فُتحت مشاركة النظام.', shareFailed: 'تعذرت مشاركة النظام. استخدم زر النسخ.', copyFailed: 'تعذر النسخ تلقائياً. انسخ هذا الرابط:', popupBlocked: 'حظر المتصفح علامة التبويب الجديدة. اسمح بالنوافذ المنبثقة ثم حاول مجدداً.', registryError: 'فشل التحقق من سجل المحركات: {{details}}', promptCopied: 'تم نسخ الموجه. الصقه في صفحة الوجهة.', promptCopyFailed: 'فُتحت صفحة الوجهة. انسخ الاستعلام الأصلي يدوياً.', engineRetired: 'توقفت خدمة {{engine}}. تبقى مفهرسة كمرجع تاريخي ولا يمكنها البحث.', enginePending: '{{engine}} بانتظار التحقق من تسجيل الدخول وغير متاح للبحث بعد.', statusPending: 'قيد الانتظار',
+    modeSearch: 'بحث ويب', modeAiSearch: 'ذكاء اصطناعي مباشر', modePrompt: 'نسخ الموجه', modeRetired: 'متوقف', engineGenericDescription: '{{engine}} وجهة إضافية ضمن {{category}}.'
+  },
+  'pt-BR': {
+    pageTitle: 'SearchAIO — Busca em vários sites', searchLabel: 'Consulta de busca', searchPlaceholder: 'Pesquise ou use google: consulta / !g consulta',
+    search: 'Pesquisar', lucky: 'Estou com sorte', copyLink: 'Criar link de tutorial (copiar)', directShare: 'Compartilhar diretamente', switchEngine: 'Trocar mecanismo de busca', enginePanelEyebrow: 'Destino da busca', enginePanelTitle: 'Escolha um mecanismo',
+    tutorialEyebrow: 'Deixe-me pesquisar para você', tutorialTitle: 'Criar um link de tutorial compartilhável', tutorialDescription: 'O link digita na busca selecionada e abre o serviço de destino.',
+    groupWeb: 'Busca na web', groupSpecialized: 'Especializado, acadêmico e saúde', groupAi: 'Chat de IA', groupFavorites: 'Favoritos', favoriteAdd: 'Adicionar aos favoritos', favoriteRemove: 'Remover dos favoritos',
+    catalogEyebrow: 'Catálogo completo', catalogTitle: 'Todos os mecanismos de busca', catalogSearchLabel: 'Filtrar mecanismos', catalogSearchPlaceholder: 'Nome, prefixo ou !bang', catalogOpen: 'Todos ({{count}})', catalogEmpty: 'Nenhum mecanismo encontrado.',
+    footerPrivacy: 'As preferências ficam apenas neste navegador.', shortcutsTitle: 'Atalhos de teclado', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: 'Focar na busca', shortcutCycle: 'Trocar mecanismo', shortcutBangExample: 'g consulta', shortcutBang: 'Pesquisar com !bang', shortcutClose: 'Fechar sugestões ou diálogo',
+    routeHint: 'Atual: {{engine}} ({{mode}}). Digite {{prefix}}: ou !{{bang}} para acessar diretamente.', emptyQuery: 'Digite algo para pesquisar.', selectedEngine: 'Alterado para {{engine}}.',
+    copied: 'Link de tutorial copiado.', shared: 'Compartilhamento do sistema aberto.', shareFailed: 'O compartilhamento falhou. Use o botão de copiar.', copyFailed: 'Não foi possível copiar automaticamente. Copie este link:', popupBlocked: 'O navegador bloqueou a nova aba. Permita pop-ups e tente novamente.', registryError: 'Falha na verificação do registro: {{details}}', promptCopied: 'Prompt copiado. Cole-o na página de destino.', promptCopyFailed: 'A página de destino foi aberta. Copie a consulta original manualmente.', engineRetired: '{{engine}} foi encerrado. Permanece indexado como referência histórica e não pode pesquisar.', enginePending: '{{engine}} aguarda a verificação de login e ainda não está disponível.', statusPending: 'pendente',
+    modeSearch: 'busca na web', modeAiSearch: 'IA direta', modePrompt: 'copiar prompt', modeRetired: 'desativado', engineGenericDescription: '{{engine}} é um destino adicional de {{category}}.'
+  },
+  ja: {
+    pageTitle: 'SearchAIO — マルチサイト検索', searchLabel: '検索クエリ', searchPlaceholder: '検索するか、google: クエリ / !g クエリで切り替えます',
+    search: '検索', lucky: 'I’m Feeling Lucky', copyLink: 'チュートリアルリンクを作成（コピー）', directShare: '直接共有', switchEngine: '検索エンジンを切り替え', enginePanelEyebrow: '検索先', enginePanelTitle: '検索エンジンを選択',
+    tutorialEyebrow: '代わりに検索します', tutorialTitle: '共有可能なチュートリアルリンクを作成', tutorialDescription: 'リンクは選択した検索欄に入力してから、対象サービスを開きます。',
+    groupWeb: 'ウェブ検索', groupSpecialized: '専門・学術・医療', groupAi: 'AI チャット', groupFavorites: 'お気に入り', favoriteAdd: 'お気に入りに追加', favoriteRemove: 'お気に入りから削除',
+    catalogEyebrow: '全カタログ', catalogTitle: 'すべての検索エンジン', catalogSearchLabel: '検索エンジンを絞り込み', catalogSearchPlaceholder: '名前、接頭辞、または !bang を検索', catalogOpen: 'すべて（{{count}}）', catalogEmpty: '一致する検索エンジンはありません。',
+    footerPrivacy: '設定はこのブラウザ内にのみ保存されます。', shortcutsTitle: 'キーボードショートカット', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: '検索欄にフォーカス', shortcutCycle: '検索エンジンを変更', shortcutBangExample: 'g クエリ', shortcutBang: '!bang で検索先を切り替え', shortcutClose: '候補またはダイアログを閉じる',
+    routeHint: '現在：{{engine}}（{{mode}}）。{{prefix}}: または !{{bang}} を入力して直接切り替えます。', emptyQuery: '検索内容を入力してください。', selectedEngine: '{{engine}} に切り替えました。',
+    copied: 'チュートリアルリンクをコピーしました。', shared: 'システム共有を開きました。', shareFailed: 'システム共有に失敗しました。コピーを使用してください。', copyFailed: '自動コピーできませんでした。次のリンクをコピーしてください：', popupBlocked: 'ブラウザが新しいタブをブロックしました。ポップアップを許可して再試行してください。', registryError: '検索エンジン設定の検証に失敗しました：{{details}}', promptCopied: 'プロンプトをコピーしました。対象ページに貼り付けてください。', promptCopyFailed: '対象ページを開きました。元の検索語を手動でコピーしてください。', engineRetired: '{{engine}} は終了しました。履歴参照用に残されていますが、検索はできません。', enginePending: '{{engine}} はログイン確認待ちのため、まだ検索できません。', statusPending: '保留中',
+    modeSearch: 'ウェブ検索', modeAiSearch: 'AI 直接検索', modePrompt: 'プロンプトをコピー', modeRetired: '終了', engineGenericDescription: '{{engine}} は {{category}} の追加検索先です。'
+  },
+  de: {
+    pageTitle: 'SearchAIO — Suche über mehrere Dienste', searchLabel: 'Suchanfrage', searchPlaceholder: 'Suchen oder mit google: Anfrage / !g Anfrage weiterleiten',
+    search: 'Suchen', lucky: 'Auf gut Glück', copyLink: 'Tutorial-Link erstellen (kopieren)', directShare: 'Direkt teilen', switchEngine: 'Suchmaschine wechseln', enginePanelEyebrow: 'Suchziel', enginePanelTitle: 'Suchmaschine auswählen',
+    tutorialEyebrow: 'Ich suche für dich', tutorialTitle: 'Teilbaren Tutorial-Link erstellen', tutorialDescription: 'Der Link trägt die Anfrage in die gewählte Suche ein und öffnet danach den Zieldienst.',
+    groupWeb: 'Websuche', groupSpecialized: 'Fachlich, akademisch und Gesundheit', groupAi: 'KI-Chat', groupFavorites: 'Favoriten', favoriteAdd: 'Zu Favoriten hinzufügen', favoriteRemove: 'Aus Favoriten entfernen',
+    catalogEyebrow: 'Vollständiger Katalog', catalogTitle: 'Alle Suchmaschinen', catalogSearchLabel: 'Suchmaschinen filtern', catalogSearchPlaceholder: 'Name, Präfix oder !bang suchen', catalogOpen: 'Alle {{count}}', catalogEmpty: 'Keine passenden Suchmaschinen.',
+    footerPrivacy: 'Einstellungen bleiben nur in diesem Browser.', shortcutsTitle: 'Tastenkürzel', shortcutRoute: '{{prefix}}: / !{{bang}}', shortcutFocus: 'Suche fokussieren', shortcutCycle: 'Suchmaschine wechseln', shortcutBangExample: 'g Anfrage', shortcutBang: 'Mit !bang weiterleiten', shortcutClose: 'Vorschläge oder Dialog schließen',
+    routeHint: 'Aktuell: {{engine}} ({{mode}}). Gib {{prefix}}: oder !{{bang}} ein, um direkt weiterzuleiten.', emptyQuery: 'Gib etwas zum Suchen ein.', selectedEngine: 'Zu {{engine}} gewechselt.',
+    copied: 'Tutorial-Link kopiert.', shared: 'Systemfreigabe geöffnet.', shareFailed: 'Systemfreigabe fehlgeschlagen. Nutze stattdessen Kopieren.', copyFailed: 'Automatisches Kopieren fehlgeschlagen. Kopiere diesen Link:', popupBlocked: 'Der Browser hat den neuen Tab blockiert. Erlaube Pop-ups und versuche es erneut.', registryError: 'Prüfung der Suchmaschinenkonfiguration fehlgeschlagen: {{details}}', promptCopied: 'Prompt kopiert. Füge ihn auf der Zielseite ein.', promptCopyFailed: 'Die Zielseite wurde geöffnet. Kopiere die ursprüngliche Anfrage manuell.', engineRetired: '{{engine}} wurde eingestellt. Der Eintrag bleibt als historische Referenz erhalten und kann nicht suchen.', enginePending: '{{engine}} wartet auf die Anmeldeprüfung und ist noch nicht verfügbar.', statusPending: 'ausstehend',
+    modeSearch: 'Websuche', modeAiSearch: 'KI direkt', modePrompt: 'Prompt kopieren', modeRetired: 'eingestellt', engineGenericDescription: '{{engine}} ist ein zusätzliches Ziel in {{category}}.'
+  }
+};
+
+for (const [language, overrides] of Object.entries(LOCALE_OVERRIDES)) {
+  TRANSLATIONS[language] = { ...TRANSLATIONS.en, ...ENGINE_DESCRIPTIONS.en, ...overrides };
+}
+
 function translate(language, key, values = {}) {
   const dictionary = TRANSLATIONS[language] || TRANSLATIONS.en;
   return (dictionary[key] || TRANSLATIONS.en[key] || key).replace(/\{\{(\w+)\}\}/g, (_, name) => values[name] ?? '');
@@ -648,6 +723,7 @@ function translate(language, key, values = {}) {
 
 
 /* src/services/preferences.js */
+
 const STORAGE_KEY = 'searchaio.preferences.v2';
 
 function safeRead() {
@@ -658,13 +734,19 @@ function detectLanguage() {
   const code = navigator.language?.toLowerCase() || 'en';
   if (code.startsWith('zh')) return 'zh';
   if (code.startsWith('ru')) return 'ru';
+  if (code.startsWith('es')) return 'es';
+  if (code.startsWith('fr')) return 'fr';
+  if (code.startsWith('ar')) return 'ar';
+  if (code.startsWith('pt')) return 'pt-BR';
+  if (code.startsWith('ja')) return 'ja';
+  if (code.startsWith('de')) return 'de';
   return 'en';
 }
 
 function loadPreferences() {
   const saved = safeRead();
   return {
-    language: ['zh', 'en', 'ru'].includes(saved.language) ? saved.language : detectLanguage(),
+    language: SUPPORTED_LANGUAGES.includes(saved.language) ? saved.language : detectLanguage(),
     theme: ['light', 'dark'].includes(saved.theme) ? saved.theme : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     selectedEngineId: typeof saved.selectedEngineId === 'string' ? saved.selectedEngineId : 'google',
     favorites: Array.isArray(saved.favorites) ? saved.favorites : []
@@ -904,7 +986,7 @@ const state = {
   tutorial: getTutorialRequest()
 };
 
-if (['zh', 'en', 'ru'].includes(urlParams.get('lang'))) state.language = urlParams.get('lang');
+if (SUPPORTED_LANGUAGES.includes(urlParams.get('lang'))) state.language = urlParams.get('lang');
 if (['light', 'dark'].includes(urlParams.get('theme'))) state.theme = urlParams.get('theme');
 if (state.tutorial) state.selectedEngineId = state.tutorial.engine.id;
 
@@ -1145,6 +1227,7 @@ function updateEngineChipOffset() {
 function render() {
   const engine = currentEngine();
   document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : state.language;
+  document.documentElement.dir = state.language === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.dataset.theme = state.theme;
   document.title = t('pageTitle');
   document.querySelectorAll('[data-i18n]').forEach((node) => { node.textContent = t(node.dataset.i18n); });

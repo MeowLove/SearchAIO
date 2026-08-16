@@ -1,5 +1,5 @@
 import { ENGINES, ENGINE_GROUPS, getEngine, validateEngineRegistry } from './config/engines.js';
-import { translate } from './i18n/translations.js';
+import { SUPPORTED_LANGUAGES, translate } from './i18n/translations.js';
 import { loadPreferences, savePreferences } from './services/preferences.js';
 import { buildSearchSubmission, buildTutorialUrl, getTutorialRequest, parseSearchInput } from './services/router.js';
 import { playTutorial } from './features/tutorial.js';
@@ -29,7 +29,7 @@ const state = {
   tutorial: getTutorialRequest()
 };
 
-if (['zh', 'en', 'ru'].includes(urlParams.get('lang'))) state.language = urlParams.get('lang');
+if (SUPPORTED_LANGUAGES.includes(urlParams.get('lang'))) state.language = urlParams.get('lang');
 if (['light', 'dark'].includes(urlParams.get('theme'))) state.theme = urlParams.get('theme');
 if (state.tutorial) state.selectedEngineId = state.tutorial.engine.id;
 
@@ -270,6 +270,7 @@ function updateEngineChipOffset() {
 function render() {
   const engine = currentEngine();
   document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : state.language;
+  document.documentElement.dir = state.language === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.dataset.theme = state.theme;
   document.title = t('pageTitle');
   document.querySelectorAll('[data-i18n]').forEach((node) => { node.textContent = t(node.dataset.i18n); });

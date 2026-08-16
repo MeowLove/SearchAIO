@@ -99,6 +99,8 @@ html[data-theme="dark"] .engine-logo[data-no-invert="true"] { filter: none; }
 .tutorial-actions button { min-width: 148px; }
 .page-footer { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px 20px; padding: 14px 24px; border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent); background: color-mix(in srgb, var(--surface) 82%, var(--bg)); color: var(--muted); font-size: .8rem; }
 .footer-controls, .language-switcher { display: flex; align-items: center; gap: 4px; }
+.language-switcher { flex-wrap: wrap; justify-content: flex-end; }
+html[dir="rtl"] .page-footer { direction: rtl; }
 .footer-shortcuts { display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 18px; background: transparent; color: var(--muted); padding: 6px 10px; font-size: .8rem; }
 .footer-shortcuts:hover { border-color: var(--border); background: var(--bg); color: var(--text); }
 .footer-shortcuts-icon { color: var(--accent); font-size: 1rem; }
