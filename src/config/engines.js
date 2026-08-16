@@ -327,7 +327,10 @@ export const ENGINES = [
     id: 'alphafold', name: 'AlphaFold', category: 'specialized', logo: localLogo('alphafold_logo.png'), searchUrl: 'https://alphafold.ebi.ac.uk/search/text/%s',
     accent: '#5077c8', profile: 'minimal', noInvert: true, aliases: ['alphafold'], bangs: ['alphafold']
   }
-];
+].map((engine) => ({
+  ...engine,
+  descriptionKey: engine.descriptionKey || `engine${engine.id.replace(/(^|-)\w/g, (part) => part.replace('-', '').toUpperCase())}`
+}));
 
 export const ENGINE_BY_ID = new Map(ENGINES.map((engine) => [engine.id, engine]));
 

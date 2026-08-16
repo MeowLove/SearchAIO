@@ -37,7 +37,7 @@
 
 ### As a Personal Search Hub
 
-![How to use SearchAIO as a personal search hub](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.gif)
+![How to use SearchAIO as a personal search hub](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.mp4)
 
 1.  Visit the **[Live Demo](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Select your preferred search engine from the list.

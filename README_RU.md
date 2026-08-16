@@ -37,7 +37,7 @@
 
 ### Как личный поисковый центр
 
-![Как использовать SearchAIO в качестве личного поискового центра](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.gif)
+![Как использовать SearchAIO в качестве личного поискового центра](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.mp4)
 
 1.  Перейдите на **[Демо-версию](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**.
 2.  Выберите предпочитаемую поисковую систему из списка.
