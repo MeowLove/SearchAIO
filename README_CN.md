@@ -37,7 +37,7 @@
 
 ### 作为个人搜索中心
 
-![如何作为个人搜索中心使用](https://github.com/MeowLove/SearchAIO/raw/main/img/SearchAIO_As_a_Personal_Search_Hub.mp4)
+https://github.com/user-attachments/assets/41f9c122-5d37-46cb-99c3-886bb2dab3d0
 
 1.  访问**[在线体验 (Demo)](https://www.cxthhhhh.com/CXT-Lib/SearchAIO/)**。
 2.  从列表中选择您偏好的搜索引擎。
